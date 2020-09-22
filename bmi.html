@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BMI Exercise</title>
+	<script type="text/javascript" src="vue.min.js"></script>
+	<script type="text/javascript" src="jquery.min.js"></script>
+
+</head>
+<body>
+	<div id="app">
+		<h1>{{ message }}</h1>
+		
+		<div>
+			<label>Weight:</label>
+			<input type="text" name="weight" v-model="weight">pounds<br><br>
+
+			<label>Heights:</label>
+
+			<input type="text" name="feet" v-model="feet">
+			feet<br><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="inch" v-model="inch">inches<br><br>
+			<button v-on:click="bmiCalculate" >Calculate</button>
+
+		</div><br><br>
+		<label>Your BMI:</label>
+		<input type="text" id="mm" v-model="bmi" >
+
+		
+		<br><br>
+		<div class="flex" style="display: flex">
+			<button style="background-color: blue" >Underweight(<18.5)</button>
+			<button style="background-color: green">Notmal weight(18.5-25)</button>
+			<button style="background-color: orange">Overweight(25-30)</button>
+			<button style="background-color: red">Obese(>30)</button> 
+
+		</div>
+		
+		
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				message: 'BMI Calculator',
+				weight :'',
+				feet :'',
+				inch : '',
+				bmi : ''
+
+
+			},
+			methods: {
+				bmiCalculate : function(){
+					var weights= parseInt(this.weight);
+
+					var feets=parseInt(this.feet);
+					var inche1=parseInt(this.inch);
+					var inche2=feets*12;
+					var height=inche1+inche2;
+					var total=((weights/(height*height))*703).toFixed(1);
+					this.bmi=total;
+				   
+				   if(total<18.5){
+			    	$("#mm").css("background-color","yellow");
+			       }else if(total<25){
+			    	 $("#mm").css("background-color","green");
+			       }else if(total<30){
+			    	$("#mm").css("background-color","orange");
+			       }else{
+			    	$("#mm").css("background-color","red");
+			       }
+
+
+			}
+
+		},
+	})
+</script>
+</body>
+</html>
